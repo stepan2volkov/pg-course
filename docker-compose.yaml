@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  database:
+    image: 'postgres:14.3'
+
+    ports:
+      - 5432:5432
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1qaz
+      POSTGRES_DB: postgres
+    
+    volumes:
+      - ./pgdata/:/var/lib/postgresql/data/
