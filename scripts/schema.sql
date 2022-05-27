@@ -51,13 +51,10 @@ CREATE TABLE room_type_inventory (
         REFERENCES hotel(id),
     CONSTRAINT room_type_inventory_room_type_fk FOREIGN KEY(room_type_id)
         REFERENCES room_type(id),
-    CONSTRAINT room_type_inventory_total_inventory_fk CHECK (
-        total_inventory >= 0 AND
+    CONSTRAINT room_type_inventory_totals_check CHECK (
+        total_inventory >= 0    AND
+        total_reserved >= 0     AND
         total_inventory >= total_reserved
-    ),
-    CONSTRAINT room_type_inventory_total_reserved_fk CHECK (
-        total_reserved >= 0 AND
-        total_reserved <= total_inventory
     )
 );
 
@@ -90,9 +87,7 @@ CREATE TABLE reservation (
         REFERENCES room_type(id),
     CONSTRAINT reservation_guest_fk FOREIGN KEY(guest_id)
         REFERENCES guest(id),
-    CONSTRAINT reservation_date_fk CHECK (
-        start_date <= end_date
-    )
+    CONSTRAINT reservation_date_fk CHECK (start_date <= end_date)
 );
 
 -- Пример запроса на вставку:
